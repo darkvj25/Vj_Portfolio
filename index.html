@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
+    <!-- Primary Meta Tags -->
+    <title>Van Jasper Benzon — Full-Stack Developer & Digital Architect</title>
+    <meta name="title" content="Van Jasper Benzon — Full-Stack Developer & Digital Architect" />
+    <meta name="description" content="Portfolio of Van Jasper Benzon, Full-Stack Developer & Digital Architect specializing in PHP, React, JavaScript, MySQL, Java, and Progressive Web Applications." />
+    <meta name="author" content="Van Jasper Benzon" />
+    <meta name="keywords" content="Van Jasper Benzon, Full Stack Developer, Web Developer, React, JavaScript, PHP, MySQL, Web Applications, Portfolio" />
+    <meta name="theme-color" content="#08090B" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Open Graph / Social Media (LinkedIn, Facebook, Discord) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Van Jasper Benzon — Full-Stack Developer Portfolio" />
+    <meta property="og:description" content="Explore full-stack web applications, interactive software systems, and digital architecture built by Van Jasper Benzon." />
+    <meta property="og:image" content="/images/me.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Van Jasper Benzon — Full-Stack Developer Portfolio" />
+    <meta name="twitter:description" content="Explore full-stack web applications, interactive software systems, and digital architecture built by Van Jasper Benzon." />
+    <meta name="twitter:image" content="/images/me.png" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2308090B' stroke='%2306B6D4' stroke-width='6'/><polygon points='50,15 62,38 87,38 67,54 75,78 50,62 25,78 33,54 13,38 38,38' fill='%2306B6D4'/></svg>" />
+    <link rel="apple-touch-icon" href="/images/me.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data (JSON-LD Schema) for Google indexing -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Van Jasper Benzon",
+        "jobTitle": "Full-Stack Developer",
+        "email": "mailto:balandoy18@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Irosin",
+          "addressRegion": "Sorsogon",
+          "addressCountry": "Philippines"
+        },
+        "knowsAbout": ["Full-Stack Development", "PHP", "MySQL", "JavaScript", "React", "Java", "Progressive Web Apps"]
+      }
+    </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </head>
+  <body class="bg-obsidian text-ivory font-inter antialiased selection:bg-cyan-500 selection:text-obsidian overflow-x-hidden">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
