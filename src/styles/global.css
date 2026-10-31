@@ -124,12 +124,15 @@ html.light-theme .bg-\[\#0b0f19\] {
   background-color: #f8fafc !important;
 }
 
-html.light-theme [class*="bg-gradient-to-b"],
-html.light-theme [class*="bg-gradient-to-t"],
-html.light-theme [class*="from-obsidian"],
-html.light-theme [class*="via-charcoal"],
-html.light-theme [class*="to-obsidian"] {
+html.light-theme section[class*="bg-gradient-"],
+html.light-theme main[class*="bg-gradient-"],
+html.light-theme div[class*="bg-gradient-to-b"] {
   background-image: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%) !important;
+}
+
+/* Image Overlays in Light Mode: Keep image crystal clear, subtle dark gradient at bottom */
+html.light-theme div.absolute[class*="bg-gradient-to-t"] {
+  background-image: linear-gradient(to top, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.1) 40%, transparent 100%) !important;
 }
 
 /* Cards & Elevated Panels in Light Mode */
