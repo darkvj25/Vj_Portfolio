@@ -14,7 +14,9 @@ import CallToAction from './components/CallToAction';
 import TerminalModal from './components/TerminalModal';
 import ProjectEstimatorModal from './components/ProjectEstimatorModal';
 import ResumeModal from './components/ResumeModal';
-import { Terminal, Calculator, FileText } from 'lucide-react';
+import PosSimulatorModal from './components/PosSimulatorModal';
+import Toast from './components/Toast';
+import { Terminal, Calculator, FileText, Zap } from 'lucide-react';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,9 +26,21 @@ export default function App() {
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isEstimatorOpen, setIsEstimatorOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isPosOpen, setIsPosOpen] = useState(false);
+
+  const [toastMsg, setToastMsg] = useState('');
+  const [toastVisible, setToastVisible] = useState(false);
 
   const isTransitioningRef = useRef(false);
   const touchStartYRef = useRef(0);
+
+  const showToast = useCallback((msg) => {
+    setToastMsg(msg);
+    setToastVisible(true);
+    setTimeout(() => {
+      setToastVisible(false);
+    }, 3000);
+  }, []);
 
   const sectionList = [
     {
@@ -42,7 +56,16 @@ export default function App() {
     },
     { id: 'intro', label: 'BIO & LORE', component: <GameIntroduction /> },
     { id: 'world', label: 'SKILLS', component: <WorldShowcase /> },
-    { id: 'characters', label: 'PROJECTS', component: <CharacterShowcase /> },
+    {
+      id: 'characters',
+      label: 'PROJECTS',
+      component: (
+        <CharacterShowcase
+          onShowToast={showToast}
+          onOpenPos={() => setIsPosOpen(true)}
+        />
+      ),
+    },
     { id: 'monsters', label: 'SYSTEMS', component: <MonsterShowcase /> },
     { id: 'gameplay', label: 'CAPABILITIES', component: <GameplayFeatures /> },
     {
@@ -64,6 +87,8 @@ export default function App() {
         <CallToAction
           onOpenEstimator={() => setIsEstimatorOpen(true)}
           onOpenResume={() => setIsResumeOpen(true)}
+          onOpenPos={() => setIsPosOpen(true)}
+          onShowToast={showToast}
         />
       ),
     },
@@ -83,7 +108,7 @@ export default function App() {
     [sectionList.length]
   );
 
-  const isAnyModalOpen = isTrailerOpen || isTerminalOpen || isEstimatorOpen || isResumeOpen;
+  const isAnyModalOpen = isTrailerOpen || isTerminalOpen || isEstimatorOpen || isResumeOpen || isPosOpen;
 
   // Wheel listener for full-page section fade transitions
   useEffect(() => {
@@ -230,6 +255,14 @@ export default function App() {
       {/* Bottom Right Floating Quick Actions Widget */}
       <div className="fixed bottom-3 right-3 sm:right-6 z-30 flex items-center space-x-1.5 sm:space-x-2">
         <button
+          onClick={() => setIsPosOpen(true)}
+          className="p-1.5 sm:p-2 rounded-full bg-slate-900/90 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 hover:border-emerald-400 transition-all shadow-lg"
+          title="Live Interactive POS & Shift Simulator"
+        >
+          <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        </button>
+
+        <button
           onClick={() => setIsTerminalOpen(true)}
           className="p-1.5 sm:p-2 rounded-full bg-slate-900/90 border border-cyan-500/40 text-cyan-400 hover:text-cyan-300 hover:border-cyan-400 transition-all shadow-cyan-glow"
           title="Open Cyber Terminal (~)"
@@ -254,12 +287,23 @@ export default function App() {
         </button>
       </div>
 
+      {/* Floating Toast Notification */}
+      <Toast message={toastMsg} visible={toastVisible} />
+
       {/* Interactive Modals */}
+      <PosSimulatorModal
+        isOpen={isPosOpen}
+        onClose={() => setIsPosOpen(false)}
+        onShowToast={showToast}
+      />
+
       <TerminalModal
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
         onOpenEstimator={() => setIsEstimatorOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}
+        onOpenPos={() => setIsPosOpen(true)}
+        onShowToast={showToast}
         onNavigate={(idx) => changeSection(idx)}
       />
 

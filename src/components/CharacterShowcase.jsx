@@ -1,13 +1,30 @@
 import React, { useState, useRef } from 'react';
 import { PROJECTS } from '../data/projects';
-import { FolderGit2, Code, ShieldCheck, Sparkles, Server, Github, ExternalLink } from 'lucide-react';
+import { FolderGit2, Code, ShieldCheck, Sparkles, Server, Github, ExternalLink, Copy, Zap } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-export default function CharacterShowcase() {
+export default function CharacterShowcase({ onShowToast, onOpenPos }) {
   const [activeProject, setActiveProject] = useState(PROJECTS[0]);
   const containerRef = useRef(null);
 
   useScrollAnimation(containerRef, { y: 30 });
+
+  const handleCopySql = () => {
+    const sqlSnippet = `-- ${activeProject.name} Database Schema (MySQL / PHP PDO)
+CREATE TABLE transactions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  reference_no VARCHAR(32) UNIQUE NOT NULL,
+  total_amount DECIMAL(10, 2) NOT NULL,
+  vat_amount DECIMAL(10, 2) NOT NULL,
+  payment_method ENUM('CASH', 'GCASH', 'MAYA') NOT NULL,
+  cashier_id INT NOT NULL,
+  shift_reconciled BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`;
+
+    navigator.clipboard.writeText(sqlSnippet);
+    if (onShowToast) onShowToast(`📋 Copied ${activeProject.name} SQL Schema snippet!`);
+  };
 
   return (
     <section
@@ -146,7 +163,25 @@ export default function CharacterShowcase() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2 shrink-0 w-full sm:w-auto justify-end">
+              <div className="flex flex-wrap items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
+                <button
+                  onClick={handleCopySql}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-[10px] font-cinzel font-bold tracking-wider text-cyan-300 hover:bg-cyan-500/10 transition-colors"
+                  title="Copy sample MySQL database schema"
+                >
+                  <Copy className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>SQL SCHEMA</span>
+                </button>
+
+                <button
+                  onClick={onOpenPos}
+                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded bg-gradient-to-r from-emerald-400 to-teal-400 text-obsidian text-[10px] font-cinzel font-bold tracking-wider hover:brightness-110 transition-all shadow-lg"
+                  title="Test Live POS Simulator Widget"
+                >
+                  <Zap className="w-3.5 h-3.5 text-obsidian" />
+                  <span>TEST POS WIDGET</span>
+                </button>
+
                 <a
                   href={activeProject.github || "https://github.com"}
                   target="_blank"
@@ -155,15 +190,6 @@ export default function CharacterShowcase() {
                 >
                   <Github className="w-3.5 h-3.5 text-cyan-400" />
                   <span>REPOSITORY</span>
-                </a>
-                <a
-                  href={activeProject.demo || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded bg-gradient-to-r from-sky-400 to-cyan-400 text-obsidian text-[10px] font-cinzel font-bold tracking-wider hover:brightness-110 transition-all shadow-cyan-glow"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-obsidian" />
-                  <span>LIVE DEMO</span>
                 </a>
               </div>
             </div>

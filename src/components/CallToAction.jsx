@@ -1,12 +1,24 @@
 import React, { useRef } from 'react';
-import { Mail, Phone, MapPin, Send, Shield, ArrowUp, Calculator, FileText } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Shield, ArrowUp, Calculator, FileText, Zap } from 'lucide-react';
 import Canvas3DLogo from './Canvas3DLogo';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-export default function CallToAction({ onOpenEstimator, onOpenResume }) {
+export default function CallToAction({ onOpenEstimator, onOpenResume, onOpenPos, onShowToast }) {
   const containerRef = useRef(null);
 
   useScrollAnimation(containerRef, { y: 20 });
+
+  const handleCopyEmail = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('balandoy18@gmail.com');
+    if (onShowToast) onShowToast('📋 Copied email (balandoy18@gmail.com) to clipboard!');
+  };
+
+  const handleCopyPhone = (e) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('+639300930835');
+    if (onShowToast) onShowToast('📋 Copied phone (+63 930 093 0835) to clipboard!');
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,23 +62,25 @@ export default function CallToAction({ onOpenEstimator, onOpenResume }) {
 
         {/* Contact Badges Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-2xl mb-5">
-          <a
-            href="mailto:balandoy18@gmail.com"
-            className="p-2.5 bg-charcoal/80 border border-cyan-500/30 rounded flex flex-col items-center hover:border-cyan-400 transition-colors group"
+          <div
+            onClick={handleCopyEmail}
+            className="p-2.5 bg-charcoal/80 border border-cyan-500/30 rounded flex flex-col items-center hover:border-cyan-400 transition-colors group cursor-pointer"
+            title="Click to copy email address"
           >
             <Mail className="w-4 h-4 text-cyan-400 mb-1 group-hover:scale-110 transition-transform" />
-            <span className="text-[9px] font-cinzel text-muted-gray tracking-widest uppercase">EMAIL</span>
+            <span className="text-[9px] font-cinzel text-muted-gray tracking-widest uppercase">EMAIL (CLICK TO COPY)</span>
             <span className="text-[11px] font-semibold text-ivory mt-0.5 font-mono">balandoy18@gmail.com</span>
-          </a>
+          </div>
 
-          <a
-            href="tel:+639300930835"
-            className="p-2.5 bg-charcoal/80 border border-cyan-500/30 rounded flex flex-col items-center hover:border-cyan-400 transition-colors group"
+          <div
+            onClick={handleCopyPhone}
+            className="p-2.5 bg-charcoal/80 border border-cyan-500/30 rounded flex flex-col items-center hover:border-cyan-400 transition-colors group cursor-pointer"
+            title="Click to copy phone number"
           >
             <Phone className="w-4 h-4 text-cyan-400 mb-1 group-hover:scale-110 transition-transform" />
-            <span className="text-[9px] font-cinzel text-muted-gray tracking-widest uppercase">PHONE & WHATSAPP</span>
+            <span className="text-[9px] font-cinzel text-muted-gray tracking-widest uppercase">PHONE (CLICK TO COPY)</span>
             <span className="text-[11px] font-semibold text-ivory mt-0.5 font-mono">+63 930 093 0835</span>
-          </a>
+          </div>
 
           <div className="p-2.5 bg-charcoal/80 border border-cyan-500/30 rounded flex flex-col items-center">
             <MapPin className="w-4 h-4 text-cyan-400 mb-1" />
@@ -76,28 +90,36 @@ export default function CallToAction({ onOpenEstimator, onOpenResume }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap justify-center items-center gap-3 w-full max-w-lg">
+        <div className="flex flex-wrap justify-center items-center gap-2.5 w-full max-w-xl">
+          <button
+            onClick={onOpenPos}
+            className="inline-flex items-center justify-center px-4 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-emerald-300 bg-slate-900 border border-emerald-500/50 rounded-sm hover:bg-emerald-500/20 transition-all uppercase shadow-lg group"
+          >
+            <Zap className="w-3.5 h-3.5 mr-1.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+            <span>POS SIMULATOR</span>
+          </button>
+
           <button
             onClick={onOpenEstimator}
-            className="inline-flex items-center justify-center px-5 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-cyan-300 bg-slate-900 border border-cyan-500/50 rounded-sm hover:bg-cyan-500/20 transition-all uppercase shadow-lg group"
+            className="inline-flex items-center justify-center px-4 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-cyan-300 bg-slate-900 border border-cyan-500/50 rounded-sm hover:bg-cyan-500/20 transition-all uppercase shadow-lg group"
           >
-            <Calculator className="w-3.5 h-3.5 mr-2 text-cyan-400 group-hover:scale-110 transition-transform" />
-            <span>PROJECT ESTIMATOR</span>
+            <Calculator className="w-3.5 h-3.5 mr-1.5 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span>ESTIMATOR</span>
           </button>
 
           <button
             onClick={onOpenResume}
-            className="inline-flex items-center justify-center px-5 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-ivory bg-slate-900 border border-white/20 rounded-sm hover:bg-cyan-500/20 transition-all uppercase shadow-lg group"
+            className="inline-flex items-center justify-center px-4 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-ivory bg-slate-900 border border-white/20 rounded-sm hover:bg-cyan-500/20 transition-all uppercase shadow-lg group"
           >
-            <FileText className="w-3.5 h-3.5 mr-2 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <FileText className="w-3.5 h-3.5 mr-1.5 text-cyan-400 group-hover:scale-110 transition-transform" />
             <span>PREVIEW CV</span>
           </button>
 
           <a
             href="mailto:balandoy18@gmail.com"
-            className="inline-flex items-center justify-center px-6 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.2em] text-obsidian bg-gradient-to-r from-sky-400 via-cyan-400 to-blue-500 rounded-sm hover:brightness-110 transition-all transform hover:-translate-y-0.5 shadow-cyan-glow uppercase group"
+            className="inline-flex items-center justify-center px-5 py-2.5 font-cinzel font-bold text-[11px] tracking-[0.15em] text-obsidian bg-gradient-to-r from-sky-400 via-cyan-400 to-blue-500 rounded-sm hover:brightness-110 transition-all transform hover:-translate-y-0.5 shadow-cyan-glow uppercase group"
           >
-            <Send className="w-3.5 h-3.5 mr-2 text-obsidian group-hover:translate-x-1 transition-transform" />
+            <Send className="w-3.5 h-3.5 mr-1.5 text-obsidian group-hover:translate-x-1 transition-transform" />
             <span>SEND INQUIRY</span>
           </a>
         </div>
