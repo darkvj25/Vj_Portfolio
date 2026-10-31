@@ -42,6 +42,13 @@ export default function Hero({ onOpenTrailer, onOpenEstimator, onOpenResume }) {
     return () => ctx.revert();
   }, []);
 
+  const handleExploreClick = () => {
+    const projectSection = document.querySelector('#characters');
+    if (projectSection) {
+      projectSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const embers = useMemo(() => {
     return Array.from({ length: 8 }, (_, i) => ({
       id: i,
