@@ -15,6 +15,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
       subtitle: 'PRIMARY SYSTEM OVERVIEW',
       description: 'Comprehensive walkthrough of full-stack workflow and core capabilities.',
       src: '/images/demo/demo.mp4',
+      poster: '/images/samlou_dash.png',
       badge: 'DEMO 01',
     },
     {
@@ -23,6 +24,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
       subtitle: 'EXTENDED FEATURE DEMO',
       description: 'Deep dive into interactive features, responsive design, and user interactions.',
       src: '/images/demo/demo_2.mp4',
+      poster: '/images/ice_login.png',
       badge: 'DEMO 02',
     },
     {
@@ -31,6 +33,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
       subtitle: 'APPLICATION WORKFLOW',
       description: 'Live demonstration of end-to-end functionality and system architecture.',
       src: '/images/demo/demo_3.mp4',
+      poster: '/images/pos_terminal.png',
       badge: 'DEMO 03',
     },
     {
@@ -39,6 +42,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
       subtitle: 'LIVE PERFORMANCE DEMO',
       description: 'Real-time performance, responsive interactions, and interface showcases.',
       src: '/images/demo/demo_4.mp4',
+      poster: '/images/pension_grid.png',
       badge: 'DEMO 04',
     },
   ];
@@ -77,34 +81,27 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
             <div
               key={demo.id}
               onClick={() => handleCardClick(idx)}
-              className="relative rounded-xl overflow-hidden border border-antique-gold/40 hover:border-antique-gold/80 shadow-cinematic cursor-pointer group bg-charcoal transition-all duration-300"
+              className="relative rounded-xl overflow-hidden border border-antique-gold/40 hover:border-antique-gold/80 shadow-lg cursor-pointer group bg-charcoal transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="relative h-[180px] xs:h-[220px] sm:h-[230px] lg:h-[260px] w-full overflow-hidden">
-                <video
-                  src={demo.src}
-                  preload="metadata"
-                  muted
-                  playsInline
-                  onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.pause();
-                    e.currentTarget.currentTime = 0;
-                  }}
-                  className="w-full h-full object-cover object-center transform group-hover:scale-105 transition duration-1000"
+                {/* Optimized Static Poster Image for 60FPS Mobile Smoothness */}
+                <img
+                  src={demo.poster}
+                  alt={demo.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-obsidian/20" />
-                <div className="absolute inset-0 bg-radial-gradient from-transparent via-obsidian/40 to-obsidian opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-obsidian/20" />
 
                 {/* Badge Top Left */}
-                <div className="absolute top-3 left-3 px-2.5 py-0.5 bg-obsidian/80 border border-antique-gold/50 rounded-full text-[9px] font-cinzel font-bold text-antique-gold tracking-widest backdrop-blur-md">
+                <div className="absolute top-3 left-3 px-2.5 py-0.5 bg-obsidian/90 border border-antique-gold/50 rounded-full text-[9px] font-cinzel font-bold text-antique-gold tracking-widest">
                   {demo.badge}
                 </div>
 
                 {/* Glowing Play Button Center */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
-                  <div className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-antique-gold/90 border-2 border-ivory text-obsidian shadow-[0_0_30px_rgba(198,161,91,0.8)] transform group-hover:scale-110 transition duration-500">
+                  <div className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-antique-gold border-2 border-ivory text-obsidian shadow-md group-hover:scale-110 transition-transform duration-300">
                     <Play className="w-5 h-5 sm:w-6 sm:h-6 ml-0.5 fill-obsidian text-obsidian" />
-                    <div className="absolute -inset-2 rounded-full border border-antique-gold/40 animate-ping pointer-events-none" />
                   </div>
 
                   <span className="mt-2.5 text-xs font-cinzel font-bold tracking-[0.2em] text-ivory uppercase group-hover:text-antique-gold transition-colors truncate max-w-full px-1">
@@ -122,7 +119,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
 
       {/* Video Modal Lightbox Overlay */}
       {isTrailerOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-obsidian/95 backdrop-blur-2xl p-4 sm:p-8 animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-obsidian/95 backdrop-blur-xl p-4 sm:p-8 animate-fadeIn">
           {/* Close Button */}
           <button
             onClick={onCloseTrailer}
@@ -160,6 +157,7 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
               src={demos[activeVideoIndex].src}
               controls
               autoPlay
+              playsInline
               className="w-full h-full object-contain"
             />
           </div>
