@@ -84,12 +84,14 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
               className="relative rounded-xl overflow-hidden border border-antique-gold/40 hover:border-antique-gold/80 shadow-lg cursor-pointer group bg-charcoal transition-all duration-300 transform hover:-translate-y-1"
             >
               <div className="relative h-[180px] xs:h-[220px] sm:h-[230px] lg:h-[260px] w-full overflow-hidden">
-                {/* Optimized Static Poster Image for 60FPS Mobile Smoothness */}
-                <img
-                  src={demo.poster}
-                  alt={demo.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
+                {/* Real-time Video Frame Thumbnail Preview */}
+                <video
+                  src={`${demo.src}#t=0.5`}
+                  preload="metadata"
+                  muted
+                  playsInline
+                  poster={demo.poster}
+                  className="w-full h-full object-cover object-center filter brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500 pointer-events-none"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-obsidian/20" />
 
@@ -119,11 +121,11 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
 
       {/* Video Modal Lightbox Overlay */}
       {isTrailerOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-obsidian/95 backdrop-blur-xl p-4 sm:p-8 animate-fadeIn">
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-obsidian/95 backdrop-blur-xl p-4 sm:p-8 animate-fadeIn">
           {/* Close Button */}
           <button
             onClick={onCloseTrailer}
-            className="absolute top-6 right-6 p-3 rounded-full bg-charcoal border border-antique-gold/40 text-ivory hover:text-antique-gold transition-colors z-50"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 rounded-full bg-charcoal border border-antique-gold/40 text-ivory hover:text-antique-gold hover:border-antique-gold transition-colors z-[110] shadow-lg"
             aria-label="Close modal"
           >
             <X className="w-6 h-6" />

@@ -120,7 +120,7 @@ Change: ₱${receipt.changeAmount.toFixed(2)}
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-2 sm:p-6 animate-fadeIn">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-2 sm:p-6 animate-fadeIn">
       <div className="relative w-full max-w-5xl bg-slate-950 border border-cyan-500/40 rounded-xl shadow-[0_0_50px_rgba(6,182,212,0.3)] flex flex-col max-h-[90vh] overflow-hidden text-ivory">
         {/* Header Bar */}
         <div className="flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-cyan-500/30">
@@ -140,7 +140,8 @@ Change: ₱${receipt.changeAmount.toFixed(2)}
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full bg-slate-800 text-gray-400 hover:text-cyan-400 transition-colors"
+            className="p-1.5 rounded-full bg-slate-800 border border-white/10 text-gray-400 hover:text-cyan-400 hover:border-cyan-400 transition-colors shrink-0"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>

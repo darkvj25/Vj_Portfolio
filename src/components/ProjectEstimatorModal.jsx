@@ -65,7 +65,7 @@ export default function ProjectEstimatorModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn overflow-y-auto">
       <div className="relative w-full max-w-2xl bg-charcoal border border-cyan-500/40 rounded-xl shadow-[0_0_50px_rgba(6,182,212,0.25)] p-5 sm:p-7 text-ivory max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
@@ -85,7 +85,8 @@ export default function ProjectEstimatorModal({ isOpen, onClose }) {
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-white/10 text-muted-gray hover:text-ivory transition-colors"
+            className="p-1.5 rounded-full bg-slate-800 border border-white/10 text-muted-gray hover:text-cyan-400 hover:border-cyan-400 transition-colors shrink-0"
+            aria-label="Close modal"
           >
             <X className="w-5 h-5" />
           </button>

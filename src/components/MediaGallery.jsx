@@ -108,11 +108,11 @@ export default function MediaGallery() {
 
       {/* Lightbox Modal */}
       {selectedImageIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/95 backdrop-blur-xl p-4 sm:p-8 animate-fadeIn">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/95 backdrop-blur-xl p-4 sm:p-8 animate-fadeIn">
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 p-3 rounded-full bg-charcoal border border-antique-gold/40 text-ivory hover:text-antique-gold transition-colors z-50"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 p-3 rounded-full bg-charcoal border border-antique-gold/40 text-ivory hover:text-antique-gold hover:border-antique-gold transition-colors z-[110] shadow-lg"
             aria-label="Close lightbox"
           >
             <X className="w-6 h-6" />

@@ -171,13 +171,23 @@ export default function App() {
     };
   }, [activeSection, isAnyModalOpen, changeSection, sectionList]);
 
-  // Keyboard Arrow & Terminal (~ / Ctrl+K) listener
+  // Keyboard Arrow, Escape & Terminal (~ / Ctrl+K) listener
   useEffect(() => {
     const handleKeyDown = (e) => {
       // Toggle Terminal on `~` or `Ctrl+K`
       if (e.key === '`' || e.key === '~' || (e.ctrlKey && e.key.toLowerCase() === 'k')) {
         e.preventDefault();
         setIsTerminalOpen((prev) => !prev);
+        return;
+      }
+
+      // Close any open modal on Escape key press
+      if (e.key === 'Escape') {
+        setIsTrailerOpen(false);
+        setIsTerminalOpen(false);
+        setIsEstimatorOpen(false);
+        setIsResumeOpen(false);
+        setIsPosOpen(false);
         return;
       }
 

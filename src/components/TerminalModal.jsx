@@ -220,16 +220,16 @@ Status: OPEN FOR ROLES, FREELANCE & SYSTEM CONTRACTS`,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn">
       <div
-        className={`relative w-full max-w-3xl bg-slate-950 border rounded-lg shadow-[0_0_50px_rgba(6,182,212,0.3)] flex flex-col h-[500px] overflow-hidden font-mono text-xs transition-colors duration-500 ${
+        className={`relative w-full max-w-3xl bg-slate-950 border rounded-lg shadow-[0_0_50px_rgba(6,182,212,0.3)] flex flex-col h-[500px] max-h-[90vh] overflow-hidden font-mono text-xs transition-colors duration-500 ${
           isMatrixMode ? 'border-emerald-500/80 shadow-[0_0_50px_rgba(16,185,129,0.4)]' : 'border-cyan-500/40'
         }`}
       >
         {/* Terminal Header Bar */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 border-b border-cyan-500/30">
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full bg-rose-500/80 cursor-pointer" onClick={onClose} />
+            <div className="w-3 h-3 rounded-full bg-rose-500/80 cursor-pointer" onClick={onClose} title="Close Terminal" />
             <div className="w-3 h-3 rounded-full bg-amber-500/80" />
             <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
             <span
@@ -244,7 +244,7 @@ Status: OPEN FOR ROLES, FREELANCE & SYSTEM CONTRACTS`,
 
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-cyan-400 transition-colors"
+            className="p-1 rounded-full text-gray-400 hover:text-cyan-400 hover:bg-slate-800 transition-colors shrink-0"
             aria-label="Close terminal"
           >
             <X className="w-4 h-4" />

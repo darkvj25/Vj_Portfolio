@@ -5,7 +5,7 @@ export default function ResumeModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-obsidian/90 backdrop-blur-md p-3 sm:p-6 animate-fadeIn">
       <div className="relative w-full max-w-4xl bg-slate-950 border border-cyan-500/40 rounded-xl shadow-[0_0_50px_rgba(6,182,212,0.25)] flex flex-col h-[85vh] overflow-hidden text-ivory">
         {/* Header Bar */}
         <div className="flex items-center justify-between px-5 py-3 bg-slate-900 border-b border-cyan-500/30">
@@ -35,7 +35,8 @@ export default function ResumeModal({ isOpen, onClose }) {
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full hover:bg-white/10 text-muted-gray hover:text-ivory transition-colors"
+              className="p-1.5 rounded-full bg-slate-800 border border-white/10 text-muted-gray hover:text-cyan-400 hover:border-cyan-400 transition-colors shrink-0"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
