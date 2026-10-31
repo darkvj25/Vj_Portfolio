@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Shield, Sparkles, Volume2, VolumeX, Terminal, Calculator, FileText } from 'lucide-react';
+import { Menu, X, Shield, Sparkles, Volume2, VolumeX, Terminal, Calculator, FileText, Sun, Moon } from 'lucide-react';
 
-export default function Navbar({ activeSection, onNavigate, onOpenTerminal, onOpenEstimator, onOpenResume }) {
+export default function Navbar({ activeSection, onNavigate, onOpenTerminal, onOpenEstimator, onOpenResume, theme, onToggleTheme }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -86,6 +86,18 @@ export default function Navbar({ activeSection, onNavigate, onOpenTerminal, onOp
         {/* Right CTA & Controls (Desktop) */}
         <div className="hidden lg:flex items-center space-x-2.5">
           <button
+            onClick={onToggleTheme}
+            className="p-2 text-ivory/70 hover:text-amber-400 transition-colors border border-white/10 rounded-full hover:border-amber-400/50"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? (
+              <Moon className="w-3.5 h-3.5 text-indigo-400" />
+            ) : (
+              <Sun className="w-3.5 h-3.5 text-amber-400" />
+            )}
+          </button>
+
+          <button
             onClick={onOpenTerminal}
             className="p-2 text-ivory/70 hover:text-cyan-400 transition-colors border border-white/10 rounded-full hover:border-cyan-500/40"
             title="Open Cyber Terminal (~)"
@@ -122,6 +134,18 @@ export default function Navbar({ activeSection, onNavigate, onOpenTerminal, onOp
 
         {/* Mobile Controls */}
         <div className="flex lg:hidden items-center space-x-1.5 sm:space-x-2 shrink-0">
+          <button
+            onClick={onToggleTheme}
+            className="p-1.5 sm:p-2 text-ivory/80 hover:text-amber-400 transition-colors border border-white/10 rounded-full bg-slate-900"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? (
+              <Moon className="w-3.5 h-3.5 text-indigo-400" />
+            ) : (
+              <Sun className="w-3.5 h-3.5 text-amber-400" />
+            )}
+          </button>
+
           <button
             onClick={() => setIsMuted(!isMuted)}
             className="p-1.5 sm:p-2 text-ivory/80 hover:text-cyan-400 transition-colors border border-white/10 rounded-full bg-slate-900"

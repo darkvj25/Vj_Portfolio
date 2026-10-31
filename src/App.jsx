@@ -16,12 +16,16 @@ import ProjectEstimatorModal from './components/ProjectEstimatorModal';
 import ResumeModal from './components/ResumeModal';
 import PosSimulatorModal from './components/PosSimulatorModal';
 import Toast from './components/Toast';
-import { Terminal, Calculator, FileText, Zap } from 'lucide-react';
+import { Terminal, Calculator, FileText, Zap, Sun, Moon } from 'lucide-react';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('vj_theme') || 'dark';
+  });
 
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const [isEstimatorOpen, setIsEstimatorOpen] = useState(false);
@@ -33,6 +37,19 @@ export default function App() {
 
   const isTransitioningRef = useRef(false);
   const touchStartYRef = useRef(0);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light-theme');
+    } else {
+      document.documentElement.classList.remove('light-theme');
+    }
+    localStorage.setItem('vj_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
 
   const showToast = useCallback((msg) => {
     setToastMsg(msg);
@@ -216,6 +233,8 @@ export default function App() {
         onOpenTerminal={() => setIsTerminalOpen(true)}
         onOpenEstimator={() => setIsEstimatorOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <SideNav
@@ -264,6 +283,18 @@ export default function App() {
 
       {/* Bottom Right Floating Quick Actions Widget */}
       <div className="fixed bottom-3 right-3 sm:right-6 z-30 flex items-center space-x-1.5 sm:space-x-2">
+        <button
+          onClick={toggleTheme}
+          className="p-1.5 sm:p-2 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 hover:text-amber-300 hover:border-amber-400 transition-all shadow-lg"
+          title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+        >
+          {theme === 'light' ? (
+            <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400" />
+          ) : (
+            <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400" />
+          )}
+        </button>
+
         <button
           onClick={() => setIsPosOpen(true)}
           className="p-1.5 sm:p-2 rounded-full bg-slate-900/90 border border-emerald-500/40 text-emerald-400 hover:text-emerald-300 hover:border-emerald-400 transition-all shadow-lg"
