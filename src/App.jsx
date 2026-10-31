@@ -193,20 +193,19 @@ export default function App() {
       <main className="relative w-full h-full overflow-x-hidden overflow-y-hidden">
         {sectionList.map((sec, idx) => {
           const isActive = activeSection === idx;
+          const isNearby = Math.abs(activeSection - idx) <= 1;
 
           return (
             <div
               key={sec.id}
               id={sec.id}
-              className={`absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden transition-all duration-1000 ease-in-out ${
+              className={`absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden transition-all duration-700 ease-in-out ${
                 isActive
-                  ? 'opacity-100 scale-100 z-10 pointer-events-auto filter blur-0 translate-y-0'
-                  : idx < activeSection
-                  ? 'opacity-0 scale-105 z-0 pointer-events-none filter blur-md -translate-y-4'
-                  : 'opacity-0 scale-95 z-0 pointer-events-none filter blur-md translate-y-4'
+                  ? 'opacity-100 scale-100 z-10 pointer-events-auto translate-y-0 visible'
+                  : 'opacity-0 scale-95 z-0 pointer-events-none translate-y-4 invisible'
               }`}
             >
-              {sec.component}
+              {isNearby ? sec.component : null}
             </div>
           );
         })}

@@ -16,19 +16,20 @@ export default function Canvas3DLogo({ size = 300, interactive = true }) {
     let targetAngleY = 0;
     let time = 0;
 
-    // Set canvas dimensions with high DPR support
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = size * dpr;
-    canvas.height = size * dpr;
+    // Set canvas dimensions with capped DPR for mobile performance (max 1.5x)
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.floor(size * dpr);
+    canvas.height = Math.floor(size * dpr);
 
-    // Particles around eclipse artifact (Cyan & Emerald)
-    const numParticles = 40;
+    // Reduced particles for mobile GPU efficiency
+    const isMobile = window.innerWidth < 768;
+    const numParticles = isMobile ? 18 : 32;
     const particles = Array.from({ length: numParticles }, () => ({
       theta: Math.random() * Math.PI * 2,
       phi: Math.acos(Math.random() * 2 - 1),
       radius: (size * 0.38) + Math.random() * (size * 0.15),
-      speed: (Math.random() * 0.01 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
-      size: Math.random() * 2.5 + 1,
+      speed: (Math.random() * 0.008 + 0.004) * (Math.random() > 0.5 ? 1 : -1),
+      size: Math.random() * 2 + 1,
       color: Math.random() > 0.4 ? '#38bdf8' : '#10b981'
     }));
 
@@ -77,10 +78,8 @@ export default function Canvas3DLogo({ size = 300, interactive = true }) {
 
       ctx.beginPath();
       ctx.arc(0, 0, r, 0, Math.PI * 2);
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 3;
       ctx.strokeStyle = '#06b6d4';
-      ctx.shadowColor = '#06b6d4';
-      ctx.shadowBlur = 15;
       ctx.stroke();
 
       // Inner Core
@@ -92,7 +91,6 @@ export default function Canvas3DLogo({ size = 300, interactive = true }) {
       ctx.beginPath();
       ctx.arc(0, 0, r * 0.82, 0, Math.PI * 2);
       ctx.fillStyle = coreGradient;
-      ctx.shadowBlur = 0;
       ctx.fill();
 
       // Inner Rune Ring (Rotating opposite)
@@ -128,8 +126,6 @@ export default function Canvas3DLogo({ size = 300, interactive = true }) {
       sigilGrad.addColorStop(1, '#3b82f6');
 
       ctx.fillStyle = sigilGrad;
-      ctx.shadowColor = '#38bdf8';
-      ctx.shadowBlur = 10;
       ctx.fill();
       ctx.restore();
 
@@ -157,8 +153,6 @@ export default function Canvas3DLogo({ size = 300, interactive = true }) {
         ctx.arc(screenX, screenY, p.size * perspective, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.globalAlpha = alpha * 0.9;
-        ctx.shadowColor = '#06b6d4';
-        ctx.shadowBlur = 8;
         ctx.fill();
         ctx.globalAlpha = 1.0;
       });

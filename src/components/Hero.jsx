@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { ChevronDown, Compass, Sparkles, FileText, Calculator } from 'lucide-react';
 import Canvas3DLogo from './Canvas3DLogo';
 import { gsap } from 'gsap';
@@ -42,12 +42,17 @@ export default function Hero({ onOpenTrailer, onOpenEstimator, onOpenResume }) {
     return () => ctx.revert();
   }, []);
 
-  const handleExploreClick = () => {
-    const projectSection = document.querySelector('#characters');
-    if (projectSection) {
-      projectSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const embers = useMemo(() => {
+    return Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      width: `${Math.random() * 3 + 2}px`,
+      height: `${Math.random() * 3 + 2}px`,
+      left: `${Math.random() * 100}%`,
+      bottom: `${Math.random() * 30}%`,
+      animationDuration: `${Math.random() * 4 + 4}s`,
+      animationDelay: `${Math.random() * 3}s`
+    }));
+  }, []);
 
   return (
     <section
@@ -68,18 +73,18 @@ export default function Hero({ onOpenTrailer, onOpenEstimator, onOpenResume }) {
       </div>
 
       {/* Floating Cyan/Emerald Embers Animated Overlay */}
-      <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden">
-        {Array.from({ length: 15 }).map((_, i) => (
+      <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden hidden sm:block">
+        {embers.map((ember) => (
           <div
-            key={i}
-            className="absolute rounded-full bg-cyan-400/80 blur-[1px] animate-ember"
+            key={ember.id}
+            className="absolute rounded-full bg-cyan-400/80 animate-ember"
             style={{
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
-              left: `${Math.random() * 100}%`,
-              bottom: `${Math.random() * 30}%`,
-              animationDuration: `${Math.random() * 5 + 4}s`,
-              animationDelay: `${Math.random() * 3}s`
+              width: ember.width,
+              height: ember.height,
+              left: ember.left,
+              bottom: ember.bottom,
+              animationDuration: ember.animationDuration,
+              animationDelay: ember.animationDelay
             }}
           />
         ))}

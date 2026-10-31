@@ -82,10 +82,14 @@ export default function TrailerSection({ isTrailerOpen, onOpenTrailer, onCloseTr
               <div className="relative h-[180px] xs:h-[220px] sm:h-[230px] lg:h-[260px] w-full overflow-hidden">
                 <video
                   src={demo.src}
-                  autoPlay
-                  loop
+                  preload="metadata"
                   muted
                   playsInline
+                  onMouseEnter={(e) => e.currentTarget.play().catch(() => {})}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.pause();
+                    e.currentTarget.currentTime = 0;
+                  }}
                   className="w-full h-full object-cover object-center transform group-hover:scale-105 transition duration-1000"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-obsidian/20" />
